@@ -1,6 +1,6 @@
 % function [] = tamp_tests_sc(path)
 
-path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-forged\dev_0065.jpg';
+path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-forged\dev_0169.jpg';
 im1=path;
 imka=imread(im1);
 subplot(4,4,1);
