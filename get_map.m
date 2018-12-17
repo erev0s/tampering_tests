@@ -1,7 +1,8 @@
 function [finalImage,success,met] = get_map(path)
 
 %% InvCAGI
-jpegList = {'ADQ2|ADQ1','InvCAGI','CAGI'};
+% jpegList = {'ADQ2|ADQ1','CAGI','InvCAGI'};
+jpegList = {'ADQ1','CAGI','InvCAGI'};  %% curious how it performs in overal on its own
 tifList = {'DCT|CAGI','ADQ1|CAGI','CAGI','InvCAGI','GHO','CFA1'};
 success = true;
 % indexFile = extractAfter(path,'dev_');
@@ -45,5 +46,6 @@ file = strcat('dev_',extractAfter(path,'dev_'));
     if(valueFound==false)
         finalImage = im;
         fprintf('LAST METHOD FAILED -- IMPLEMENT MORE | file %s \n', file);
+        met = 'NaN';
     end
     

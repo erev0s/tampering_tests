@@ -23,7 +23,11 @@ for i=3:L
     [F] = f_measure(double(im),double(b));
     correlation = corr2(im,b);
     Faddup = F + Faddup;
-    fprintf('%s with method -> %s and COR = %2.4f and FMeasure = %2.4f \n \n',file,met,correlation,F);
+    if F > 0.8383
+        fprintf('SUCCESS: %s with method -> %s and COR = %2.4f and FMeasure = %2.4f \n \n',file,met,correlation,F);
+    else
+        fprintf('FAILURE: %s with method -> %s and COR = %2.4f and FMeasure = %2.4f \n \n',file,met,correlation,F);
+    end
     savepath = fullfile( outputpath, strcat(file(1:end-3),'bmp'));
     imwrite(im,savepath);
 end
