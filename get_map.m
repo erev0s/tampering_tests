@@ -2,8 +2,8 @@ function [finalImage,success,met] = get_map(path)
 
 %% InvCAGI
 % jpegList = {'ADQ2|ADQ1','CAGI','InvCAGI'};
-jpegList = {'ADQ1','CAGI','InvCAGI'};  %% curious how it performs in overal on its own
-tifList = {'DCT|CAGI','ADQ1|CAGI','CAGI','InvCAGI','GHO','CFA1'};
+jpegList = {'ADQ1','CAGI','InvCAGI'};  %% curious how it performs in overal on its own = answer in short - better
+tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGI','CFA2','NOI1','InvCFA1'};
 success = true;
 % indexFile = extractAfter(path,'dev_');
 
