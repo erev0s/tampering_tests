@@ -1,19 +1,13 @@
 function [finalImage,success,met] = get_map(path)
 
-%% InvCAGI
-% jpegList = {'ADQ2|ADQ1','CAGI','InvCAGI'};
-jpegList = {'ADQ1','CAGI','InvCAGI'};  %% curious how it performs in overal on its own = answer in short - better
-tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGI','CFA2','NOI1','InvCFA1'};
+%% LIST
+% jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
+% jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
+jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1','DCT|CAGI'};
+tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
 success = true;
-% indexFile = extractAfter(path,'dev_');
 
-%% Some other shitty file
-% if(strcmp(indexFile,'')==true)
-%     success = false ;  
-%      finalImage = 'KUR';
-%      return;
-% end
-
+%% 
 file = strcat('dev_',extractAfter(path,'dev_'));
     
     finalImage = imread(path);
@@ -45,7 +39,7 @@ file = strcat('dev_',extractAfter(path,'dev_'));
     end
     if(valueFound==false)
         finalImage = im;
-        fprintf('LAST METHOD FAILED -- IMPLEMENT MORE | file %s \n', file);
-        met = 'NaN';
+        met = 'lil';
+        fprintf('Everything FAILED\n');
     end
     

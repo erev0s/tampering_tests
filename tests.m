@@ -2,7 +2,8 @@ clear;
 path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\test\';
 outputpath = 'C:\Users\erev\Documents\MATLAB\dev-dataset\me\';
 propermaps = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-maps\';
-
+jpegs=0;
+suc=0;
 files = dir(fullfile(path, '*.*'));
 L = length(files);
 Faddup = 0;
@@ -13,6 +14,7 @@ for i=3:L
     if strcat(file(end-3:end)) == '.tif'
         continue;
     end
+    jpegs= jpegs+1;
     [im,success,met] = get_map(filepath);
     %Compare to the actual tampering map. THIS WILL NOT BE PART OF THE
     %FINAL CODE
@@ -24,6 +26,7 @@ for i=3:L
     correlation = corr2(im,b);
     Faddup = F + Faddup;
     if F > 0.8383
+        suc=suc+1;
         fprintf('SUCCESS: %s with method -> %s and COR = %2.4f and FMeasure = %2.4f \n \n',file,met,correlation,F);
     else
         fprintf('FAILURE: %s with method -> %s and COR = %2.4f and FMeasure = %2.4f \n \n',file,met,correlation,F);
@@ -33,6 +36,6 @@ for i=3:L
 end
 allfiles = dir(fullfile(outputpath));
 Li = length(allfiles);
-fprintf('Average F Measure = %2.4f \n \n',Faddup/(Li-2));
+fprintf('Average F Measure = %2.4f , SUCCESS in %d / %d \n \n',Faddup/jpegs,suc,jpegs);
  
  
