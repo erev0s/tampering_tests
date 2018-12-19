@@ -6,14 +6,20 @@ propermaps = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-maps\';
 limit = 0.8384;
 jpegs=0;
 suc=0;
-files = dir(fullfile(path, '*.*'));
-L = length(files);
+
 Faddup = 0;
 Faddupov = 0;
 start_time = cputime;
+
+dirInfo = dir(path);
+files = {dirInfo(~[dirInfo.isdir]).name};
+[~, L] = size(files);
+
+
+
 %% actual checking
-for i=3:L
-    file=files(i).name;
+for i=1:L
+    file=files{i};
     filepath = fullfile(path, file );
     %Get the best map for that image
 %     if strcat(file(end-3:end)) == '.jpg' %%checking for tifs now
