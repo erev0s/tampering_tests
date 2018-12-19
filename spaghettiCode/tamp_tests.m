@@ -1,10 +1,10 @@
-function [] = tamp_tests(path)
-
+% function [] = tamp_tests(path)
+path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\test\dev_0017.tif';
 im1=path;
-imka=imread(im1);
-subplot(3,4,1);
-title('Orig');
-imshow(CleanUpImage(im1));
+% imka=imread(im1);
+% subplot(1,3,1);
+% imshow(CleanUpImage(im1));
+% title('Orig');
 
 % %% ADQ1
 % [OutputMap, Feature_Vector, coeffArray] = analyzeADQ1(im1);
@@ -80,9 +80,16 @@ imshow(CleanUpImage(im1));
 %% CAGI
 
 [ Result_CAGI,Result_Inv_CAGI ] = CAGI(im1);
-subplot(3,4,11);
-imshow(bwboundaries(imbinarize(Result_CAGI)));
-subplot(3,4,12);
-imshow(bwboundaries(imbinarize(Result_Inv_CAGI)));
+    OutputMap1=imbinarize(Result_CAGI,0.44);
+    OutputMap1 = imclose(bwareafilt(OutputMap1,1), ones(20));
+    OutputMap1 = imfill(OutputMap1, 'holes');
+    OutputMap1=(imresize(OutputMap1,[1500 2000]));
+imwrite(OutputMap1,'C:\Users\erev\Desktop\1.bmp');
+    OutputMap2=imbinarize(Result_Inv_CAGI);
+    OutputMap2 = imclose(bwareafilt(OutputMap2,1), ones(20));
+    OutputMap2 = imfill(OutputMap2, 'holes');
+    OutputMap2=(imresize(OutputMap2,[1500 2000]));
+imwrite(OutputMap2,'C:\Users\erev\Desktop\2.bmp');
+
 
 

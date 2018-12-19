@@ -4,15 +4,14 @@ function [finalImage,success,met] = get_map(path)
 % jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
 % jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
 jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1','DCT|CAGI'};
-tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
+% tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
+tifList = {'BLK','ADQ1','CFA2','CAGIs','CAGI','InvCAGIx'};
 success = true;
 
 %% 
 file = strcat('dev_',extractAfter(path,'dev_'));
-    
+
     finalImage = imread(path);
-   
-    
     extension = extractAfter(file,'.');
     if(strcmp(extension,'jpg'))
         %% THIS IS JPEG FILE run set of algorithms for it

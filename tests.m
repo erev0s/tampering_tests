@@ -11,7 +11,7 @@ for i=3:L
     file=files(i).name;
     filepath = fullfile(path, file );
     %Get the best map for that image
-    if strcat(file(end-3:end)) == '.tif'
+    if strcat(file(end-3:end)) == '.jpg' %%checking for tifs now
         continue;
     end
     jpegs= jpegs+1;
