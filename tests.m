@@ -10,15 +10,15 @@ files = dir(fullfile(path, '*.*'));
 L = length(files);
 Faddup = 0;
 Faddupov = 0;
-
+start_time = cputime;
 %% actual checking
 for i=3:L
     file=files(i).name;
     filepath = fullfile(path, file );
     %Get the best map for that image
-    if strcat(file(end-3:end)) == '.jpg' %%checking for tifs now
-        continue;
-    end
+%     if strcat(file(end-3:end)) == '.jpg' %%checking for tifs now
+%         continue;
+%     end
     jpegs= jpegs+1;
     [im,success,met] = get_map(filepath);
     %Compare to the actual tampering map. THIS WILL NOT BE PART OF THE
@@ -53,7 +53,7 @@ else
     Faddupov = Faddupov + Fimcomp;
 end
 end
-
-fprintf('Average F Measure = %2.4f and FMov = %2.4f ||| OVERALL SUCCESS in %d / %d \n \n',Faddup/jpegs,Faddupov/jpegs,suc,jpegs);
+stop_time = cputime;
+fprintf('Average F Measure = %2.4f and FMov = %2.4f ||| OVERALL SUCCESS in %d / %d  in %0.5f sec\n \n',Faddup/jpegs,Faddupov/jpegs,suc,jpegs,abs( start_time - stop_time));
  
  
