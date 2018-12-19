@@ -8,7 +8,7 @@ function [result] = evaluateMap(image)
      permi = 1;%%so when in some methods you get 
                %%black output it will not throw an error
  end
- if(permi<5690) && getWhitePercent(image)>4 && getWhitePercent(image)<88
+ if(permi<5893) && getWhitePercent(image)>4 && getWhitePercent(image)<88
      result = true;
  else
      result = false;
