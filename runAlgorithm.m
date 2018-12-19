@@ -64,7 +64,7 @@ switch(alg)
     otherwise
         default = true;
         [OutputMap1] = analyzeDCT(path);
-        fprintf('METHOD NOT FOUND - RESORTING TO DCT');
+        fprintf('METHOD NOT FOUND - RESORTING TO DCT \n');
 end
 
 %% if default processing happens
