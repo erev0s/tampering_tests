@@ -1,8 +1,5 @@
 function [finalImage,met] = get_map(path)
 
-    %% Some definitions
-    DEST_FOLDER='DEMO_RESULTS';
-
     %% Algorithms chains
     jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
     tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
@@ -43,7 +40,7 @@ function [finalImage,met] = get_map(path)
     end
     
     %% Write generated image to the destination folder
-    out_filepath = sprintf('%s\\%s_map%s',DEST_FOLDER,filename,'.bmp');
+    out_filepath = sprintf('DEMO_RESULTS\\%s_map.bmp',filename);
     imwrite(finalImage,out_filepath);
 end
     
