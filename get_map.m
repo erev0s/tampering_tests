@@ -1,15 +1,18 @@
 function [finalImage,success,met] = get_map(path)
 
-%% LIST
-% jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
-% jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
-jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
-% tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
-tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
-success = true;
+    %% LIST
+    % jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
+    % jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
+   
+    
+    jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
+    % tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
+    tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
+    success = true;
+    DEST_FOLDER='DEMO_RESULTS';
 
-%% 
-file = strcat('dev_',extractAfter(path,'dev_'));
+    %% 
+    file = strcat('dev_',extractAfter(path,'dev_'));
 
     finalImage = imread(path);
     extension = extractAfter(file,'.');
@@ -41,4 +44,10 @@ file = strcat('dev_',extractAfter(path,'dev_'));
         met = 'lil';
         fprintf('Everything FAILED\n');
     end
+    
+    % Write generated image to the destination folder
+    [~,filename,ext] = fileparts(path);
+    out_filepath = sprintf('%s\\%s_map%s',DEST_FOLDER,filename,ext);
+    imwrite(finalImage,out_filepath);
+end
     
