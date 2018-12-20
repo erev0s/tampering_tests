@@ -1,9 +1,9 @@
 clear;
 %% some constants here
-path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-forged';
-% path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\test';
-outputpath = 'C:\Users\erev\Documents\MATLAB\dev-dataset\me\';
-propermaps = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-maps\';
+path = 'dev-dataset-forged';
+outputpath = 'DEMO_RESULTS';
+propermaps = 'dev-dataset-maps';
+number_of_images=10;
 limit = 0.7584;
 jpegs=0;
 suc=0;
@@ -19,7 +19,7 @@ files = {dirInfo(~[dirInfo.isdir]).name};
 
 
 %% actual checking
-for i=1:200
+for i=1:number_of_images
     file=files{i};
     filepath = fullfile(path, file );
     %Get the best map for that image
@@ -27,7 +27,7 @@ for i=1:200
 %         continue;
 %     end
     jpegs= jpegs+1;
-    [im,success,met] = get_map(filepath);
+    [im,met] = get_map(filepath);
     %Compare to the actual tampering map. THIS WILL NOT BE PART OF THE
     %FINAL CODE
     
