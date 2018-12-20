@@ -1,53 +1,49 @@
-function [finalImage,success,met] = get_map(path)
+function [finalImage,met] = get_map(path)
 
-    %% LIST
-    % jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
-    % jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
-   
-    
-    jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
-    % tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
-    tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
-    success = true;
+    %% Some definitions
     DEST_FOLDER='DEMO_RESULTS';
 
-    %% 
-    file = strcat('dev_',extractAfter(path,'dev_'));
-
-    finalImage = imread(path);
-    extension = extractAfter(file,'.');
-    if(strcmp(extension,'jpg'))
-        %% THIS IS JPEG FILE run set of algorithms for it
+    %% Algorithms chains
+    jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
+    tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
+    
+    %% Select algorithms set according to the file type
+    [~,filename,extension] = fileparts(path);
+    if (strcmp(extension,'.jpg') || strcmp(extension,'.jpeg'))
+        % This is a JPEG file run set of algorithms for it
         listOfAlrorithms = jpegList;
     else
-        %% THIS IS TIF FILE run set of algorithms for it
+        % This is a TIF file run set of algorithms for it
         listOfAlrorithms = tifList;
     end
     
+    %% Run analysis
     [~,algorithmsSize] = size(listOfAlrorithms);
-    valueFound = false;
+    matchValue = false;
     for j=1:algorithmsSize
+        
+        % Run next algorithms and evaluate the result
         method = listOfAlrorithms{j};
         im = runAlgorithm(method,path);
-%         fprintf('Method used is -> %s\n',method{1});
-        % Check the result
         matchValue = evaluateMap(im);
-        if(matchValue==true)
-           valueFound = true;
+        
+        % Check the result of the evaluation
+        if(matchValue == true)
            met = method;
            finalImage = im;
            break;
         end
     end
-    if(valueFound==false)
+    
+    %% If all methods failed
+    if (matchValue == false)
         finalImage = im;
         met = 'lil';
         fprintf('Everything FAILED\n');
     end
     
-    % Write generated image to the destination folder
-    [~,filename,ext] = fileparts(path);
-    out_filepath = sprintf('%s\\%s_map%s',DEST_FOLDER,filename,ext);
+    %% Write generated image to the destination folder
+    out_filepath = sprintf('%s\\%s_map%s',DEST_FOLDER,filename,'.bmp');
     imwrite(finalImage,out_filepath);
 end
     
