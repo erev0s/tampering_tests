@@ -3,7 +3,7 @@ function [finalImage,success,met] = get_map(path)
 %% LIST
 % jpegList = {'ADQ2|ADQ1','CAGI','BLK','InvCAGIx'};
 % jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1'}; %72% without the bwarea filt in the complementary
-jpegList = {'ADQ2|ADQ1','CAGI','InvCAGIx','NOI1','DCT|CAGI'};
+jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
 % tifList = {'BLK','ADQ1','CAGI','InvCFA1','InvCAGIx','CFA2','NOI1','InvCFA1'};
 tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
 success = true;

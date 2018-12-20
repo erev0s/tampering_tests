@@ -4,7 +4,7 @@ duelMode = false;
 complm=false;
 isitcagis=false;
 default = false;
-
+ghost = false;
 switch(alg)
     case 'ADQ1'
         default = true;
@@ -28,9 +28,8 @@ switch(alg)
         default = true;
         OutputMap1 = analyzeNOI1(path);
     case 'GHO1'
-        default = true;
+        ghost = true;
         OutputMap1 = analyzeGHO(path);
-        OutputMap1 = OutputMap1{1}; % has many layers --- try more???
     case 'ADQ2|ADQ1'
         duelMode = true;
         default = true;
@@ -49,17 +48,26 @@ switch(alg)
         default = true;
         duelMode = true;
         [OutputMap1, ~, ~] = analyzeADQ1(path);
+
         try
             [OutputMap2, ~] = CAGI(path);
         catch
             OutputMap2 = zeros(1500,2000);
+        end
+    case 'InvCAGI'
+        try
+            [~,OutputMap1 ] = CAGI(path);
+            default = true;
+        catch
+            default = true;
+            OutputMap1 = zeros(1500,2000);
         end
     case 'InvCAGIx'
         try
             [~,OutputMap1 ] = CAGI(path);
             complm = true;
         catch
-            isitcagis = true;
+            complm = true;
             OutputMap1 = zeros(1500,2000);
         end
     case 'CAGIx'
@@ -67,7 +75,7 @@ switch(alg)
             [OutputMap1,~] = CAGI(path);
             complm = true;
         catch
-            isitcagis = true;
+            complm = true;
             OutputMap1 = zeros(1500,2000);
         end
     case 'CAGI'
@@ -75,7 +83,7 @@ switch(alg)
             default = true;
             [OutputMap1,~] = CAGI(path);
         catch
-            isitcagis = true;
+            default = true;
             OutputMap1 = zeros(1500,2000);
         end
     case 'CAGIs'
@@ -106,9 +114,33 @@ if default == true
     OutputMap1=(imresize(OutputMap1,[1500 2000]));
     
     binaryIm = OutputMap1;
-    binaryIm=imbinarize(im2uint8(binaryIm));
-    binaryIm=imfill(binaryIm, 'holes');
+    binaryIm=imbinarize(im2uint8(binaryIm)); 
+    binaryIm=imfill(binaryIm, 'holes'); %maybe unnecessary
 end
+%% GHOST TIME with nasty processing :P
+if ghost == true
+    bin = cell(1,50);
+    for i=1:length(OutputMap1)
+        bin{i} = imbinarize(OutputMap1{i});
+        bin{i} = imfill(bin{i},'holes');
+        bin{i} = imclose(bin{i},ones(11));
+        bin{i} = imcomplement(bin{i});
+        bin{i} = bwareafilt(bin{i},1);
+        bin{i} = imfill(bin{i},'holes');
+    end
+    binaryIm = bin{1};
+    for i=2:length(bin)
+        binaryIm = binaryIm + bin{i};
+    end
+    binaryIm = imbinarize(mat2gray(binaryIm),0.92);
+    binaryIm = bwareafilt(binaryIm,1);
+    binaryIm = bwmorph(binaryIm,'thicken',4);
+    binaryIm = bwmorph(binaryIm,'majority',50);
+    binaryIm = imfill(binaryIm,8,'holes');
+    binaryIm = imclose(binaryIm,ones(10));
+    binaryIm=(imresize(binaryIm,[1500 2000]));
+end
+
 %% if we need the complementary
 if complm == true
     OutputMap1=imbinarize(im2uint8(OutputMap1));

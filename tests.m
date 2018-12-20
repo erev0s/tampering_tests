@@ -1,9 +1,10 @@
 clear;
 %% some constants here
-path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\test\';
+path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-forged';
+% path = 'C:\Users\erev\Documents\MATLAB\dev-dataset\test';
 outputpath = 'C:\Users\erev\Documents\MATLAB\dev-dataset\me\';
 propermaps = 'C:\Users\erev\Documents\MATLAB\dev-dataset\dev-dataset-maps\';
-limit = 0.8384;
+limit = 0.7584;
 jpegs=0;
 suc=0;
 
@@ -18,11 +19,11 @@ files = {dirInfo(~[dirInfo.isdir]).name};
 
 
 %% actual checking
-for i=1:L
+for i=1:200
     file=files{i};
     filepath = fullfile(path, file );
     %Get the best map for that image
-%     if strcat(file(end-3:end)) == '.jpg' %%checking for tifs now
+%     if strcat(file(end-3:end)) == '.tif' %%checking for tifs now
 %         continue;
 %     end
     jpegs= jpegs+1;
