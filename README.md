@@ -1,7 +1,7 @@
 # Tampering Detection in JPG and TIF images
 This is code used during a competition of Multimedia Data Security course in University of Trento. We received the higher mark for our results (31). There are minor edits to the algorithms based on some problems we faced. The interesting part of the code is the way it evaluates if the output of each algorith is a proper results or not, which can be found  [here][1]. Important is also the editing of each results before the evaluation.
 
-There is also a folder named spaghetti code with some testing cases and other parts not particularly useful.
+There is also a folder named spaghetti code with some testing cases and other parts not particularly useful. You can download some testing images [here][2]
 
 To run the code please execute the function getmap(Path), where Path is the path of the image that we want to analyze.
 The output as requested will be written in the Directory "DEMO_RESULTS".
@@ -13,3 +13,4 @@ The output as requested will be written in the Directory "DEMO_RESULTS".
 
 
 [1]: https://github.com/erev0s/tampering_tests/blob/master/SUPPORT/evaluateMap.m
+[2]: https://drive.google.com/file/d/1kIV_W7tZf3JdMP2jqCMY7loqlh2pY13d/view?usp=sharing
