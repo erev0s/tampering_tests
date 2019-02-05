@@ -1,7 +1,7 @@
 function [finalImage,met] = get_map(path)
 
     %% Algorithms chains
-    jpegList = {'ADQ2|ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
+    jpegList = {'ADQ2|ADQ1','ADQ1','CAGI','NOI1','GHO1','InvCAGI'};
     tifList = {'BLK','ELA','ADQ1','CFA2','CAGIs','CAGI','CFA1','InvCAGIx','CAGIx','CFA1'};
     
     %% Select algorithms set according to the file type
